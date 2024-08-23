@@ -1,0 +1,4 @@
+# Ignore model files
+Modelgooglecolab/pytorch_model.bin
+# Ignore virtual environment
+venv/

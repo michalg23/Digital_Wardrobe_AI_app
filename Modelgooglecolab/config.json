@@ -1,0 +1,50 @@
+{
+  "_name_or_path": "google/vit-base-patch16-224-in21k",
+  "architectures": [
+    "ViTForImageClassification"
+  ],
+  "attention_probs_dropout_prob": 0.0,
+  "encoder_stride": 16,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.0,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "Dress",
+    "1": "Hat",
+    "2": "Hoodie",
+    "3": "Longsleeve",
+    "4": "Outwear",
+    "5": "Pants",
+    "6": "Shoes",
+    "7": "Shorts",
+    "8": "Shortsleeve",
+    "9": "Skirt",
+    "10": "Vest"
+  },
+  "image_size": 224,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "label2id": {
+    "Dress": "0",
+    "Hat": "1",
+    "Hoodie": "2",
+    "Longsleeve": "3",
+    "Outwear": "4",
+    "Pants": "5",
+    "Shoes": "6",
+    "Shorts": "7",
+    "Shortsleeve": "8",
+    "Skirt": "9",
+    "Vest": "10"
+  },
+  "layer_norm_eps": 1e-12,
+  "model_type": "vit",
+  "num_attention_heads": 12,
+  "num_channels": 3,
+  "num_hidden_layers": 12,
+  "patch_size": 16,
+  "problem_type": "single_label_classification",
+  "qkv_bias": true,
+  "torch_dtype": "float32",
+  "transformers_version": "4.42.4"
+}
