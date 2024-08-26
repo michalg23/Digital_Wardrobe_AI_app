@@ -37,23 +37,11 @@ def extract_dominant_colors(image_path):
     color_names = []
     for color in palette:
         try:
-            #print(color)
-            #print(f"#{color[0]:02x}{color[1]:02x}{color[2]:02x}")
             cname = webcolors.rgb_to_name(color)
-            color_names.append(cname)
-            #print(f"The color is exactly {cname}")
         except ValueError:
             cname = closest_color(color)
-            #print(f"The color is closest to {cname}")
-            color_names.append(cname)
-        #plt.imshow([[color]])
+        color_names.append(cname)
         #plt.show()
-    return color_names    
-
-
-
-
+        # Return the actual number of colors found without repeating
+    return list(set(color_names)) 
     
-    #color_thief = ColorThief(image_path)
-    #dominant_color = color_thief.get_color(quality=1)
-    #return dominant_color

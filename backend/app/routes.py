@@ -2,6 +2,8 @@ from flask import current_app, jsonify, request, session
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
 from datetime import datetime
+from rembg import remove
+from PIL import Image as PILImage
 import os
 
 
@@ -22,8 +24,44 @@ def save_image(image_file):
 
     filename = secure_filename(image_file.filename)
     file_path = os.path.join(upload_folder, filename)
-    image_file.save(file_path)
-    return file_path
+
+    # Open the image using PIL
+    image = PILImage.open(image_file)
+    # Remove the background
+    image_no_bg = remove(image)
+    # Convert the image to RGBA to ensure it has an alpha channel
+    image_no_bg = image_no_bg.convert("RGBA")
+    # Get the bounding box of the non-transparent areas
+    bbox = image_no_bg.getbbox()
+    # Crop the image to remove any extra transparent space
+    if bbox:
+        image_cropped = image_no_bg.crop(bbox)
+    else:
+        image_cropped = image_no_bg
+    # Save the image as PNG to preserve transparency
+    file_path = os.path.splitext(file_path)[0] + ".png"  # Ensure the file is saved as PNG
+    image_cropped.save(file_path, format="PNG")
+
+    return file_path    
+
+    # Crop the image to remove any extra transparent space
+    '''image_cropped = image_no_bg.crop(bbox)
+     # Determine the format based on the file extension
+    file_ext = os.path.splitext(filename)[1].lower()
+    if file_ext in ['.jpg', '.jpeg']:
+        # Convert to RGB before saving as JPEG
+        image_cropped = image_cropped.convert("RGB")
+        image_cropped.save(file_path, format="JPEG")
+    elif file_ext == '.png':
+        # Save as PNG, which supports RGBA
+        image_cropped.save(file_path, format="PNG")
+    else:
+        # Handle other formats if necessary (default to saving with original format)
+        image_cropped.save(file_path)
+
+    return file_path'''
+
+
 
 # Middleware to check if the user is logged in
 def login_required(f):
@@ -235,10 +273,11 @@ def add_image():
     user_id = session.get('user_id')
     if not user_id:
         return jsonify({'error': 'User ID not found in session'}), 400
-
+    
+    #file_path = save_image(image_file)
+    category = classify_image(image_file)
     file_path = save_image(image_file)
-    category = classify_image(file_path)
-
+    
     # Check if the category is "other"
     if category.lower() == 'other':
         dominant_color = None  # Set dominant color to None for category "other"
@@ -309,18 +348,21 @@ def delete_image(image_id):
         result = get_images_collection().delete_one({'_id': ObjectId(image_id),'user_id':ObjectId(session.get('user_id')) })
 
         if result.deleted_count == 1:
-            # Check if the file exists and delete it
-            if os.path.exists(file_path):
-                os.remove(file_path)
+            # Check if there are any other documents referencing the same file path
+            other_references = get_images_collection().find_one({'file_path': file_path,'user_id':ObjectId(session.get('user_id'))})
 
-            return jsonify({'message': 'Image and file path deleted successfully'}), 200
+            if other_references is None:
+                # No other references, safe to delete the file
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                    return jsonify({'message': 'Image and file path deleted successfully'}), 200
+                else:
+                    return jsonify({'message': 'File does not exist, but image document deleted successfully'}), 200
+            else:
+                # There are still references, so only delete the document from MongoDB
+                return jsonify({'message': 'Image document deleted, but file is still referenced by other images'}), 200
         else:
             return jsonify({'message': 'Failed to delete image from database'}), 500
     else:
         return jsonify({'message': 'Image not found'}), 404
-    #result = get_images_collection().find_one({'_id': ObjectId(image_id),'user_id':ObjectId(session.get('user_id')) })
-    
-    #if result.deleted_count == 1:
-     #   return jsonify({'message': 'Image deleted successfully'}), 200
-    #else:
-     #   return jsonify({'message': 'Image not found'}), 404
+   
