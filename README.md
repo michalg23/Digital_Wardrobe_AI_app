@@ -1,4 +1,4 @@
-# Digital-wardrobe-AI-
+# Digital wardrobe AI App
 Welcome to the Digital Wardrobe App! This application allows you to effortlessly organize and categorize your clothing by simply uploading images. Powered by cutting-edge AI technology, the app automatically classifies your clothes into the appropriate categories, making wardrobe management easier and more efficient.
 ## Features
 - Upload Images: Seamlessly upload images of your clothes from your device.
@@ -10,5 +10,5 @@ Welcome to the Digital Wardrobe App! This application allows you to effortlessly
 ## Getting Started
 ### Clone the Repository:
 ```sh
-    git clone https://github.com/your-username/digital-wardrobe-app.git
+    git clone https://github.com/michalg23/Digital_Wardrobe_AI_app.git
 ```
