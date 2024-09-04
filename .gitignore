@@ -2,3 +2,5 @@
 Modelgooglecolab/pytorch_model.bin
 # Ignore virtual environment
 venv/
+#Ignore node_modules
+node_modules/
