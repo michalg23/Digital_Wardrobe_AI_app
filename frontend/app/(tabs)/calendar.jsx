@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useCallback } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput, Image, ScrollView, Alert,Dimensions  } from 'react-native';
 import { CalendarList } from 'react-native-calendars';
 import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
@@ -41,26 +41,39 @@ const Calendar = () => {
 
 
 
+  // Ensure handleFocus follows React's rules
+  const handleFocus = useCallback(async () => {
+    try {
+      const storedOutfitsData = await AsyncStorage.getItem('outfitsCalendar');
+      console.log('value1:', storedOutfitsData);
+      console.log('value2:', previousOutfit1);
+      console.log('value3:', NewOutfit.images.length);
 
-  // Load outfits from AsyncStorage when the screen is focused
-  useFocusEffect(
-    
-    React.useCallback(() => {
-      const storedOutfitsData = AsyncStorage.getItem('outfitsCalendar');
-
-      if(storedOutfitsData && previousOutfit1===null){
+      if (
+        storedOutfitsData !== null &&
+        previousOutfit1 === null &&
+        NewOutfit.images.length === 0
+      ) {
         
         loadOutfits();
-        console.log("check to see if we use this useffect(first)");
-        //useStore.getState().setOutfit(outfitforcancel);
-        //eraseOutfit();
+        console.log('check to see if we use this useffect(first)');
+        //setpreviousOutfit(outfit);
       }
-      
-      //loadOutfits();
-      //console.log("check to see if we use this useffect(first)");
+    } catch (error) {
+      console.error('Error loading outfits:', error);
+    }
+  }, [previousOutfit1, NewOutfit, outfit]);
 
-    }, [])
+  // Use `useFocusEffect` properly
+  useFocusEffect(
+    useCallback(() => {
+      handleFocus(); // Call the async function on focus
+      return () => {
+        // Optional cleanup if needed (not required in your case)
+      };
+    }, [handleFocus])
   );
+
 
   useEffect(() => {
     console.log("check to see if we use this useffect(seconed)");
@@ -74,8 +87,14 @@ const Calendar = () => {
         if (updatedOutfit) {
           console.log("1111");
           handleUpdatedOutfit(updatedOutfit); // Update the stored outfits
-          setpreviousOutfit(null);
+          //setpreviousOutfit(null);
         }
+        if(previousOutfit1!==null){
+          setpreviousOutfit(null);
+
+        }
+        
+        
         
         // Reset route params to avoid reusing old data on the next focus
         //navigation.setParams({ updatedOutfit: null, previousOutfit: null });
@@ -89,7 +108,7 @@ const Calendar = () => {
 
   useEffect(() => {
     console.log("the deleted image is :",deletedImagePath);
-    if (deletedImagePath !== '') {
+    if (deletedImagePath !== '' ) {
       loadOutfits(); // Call loadOutfits whenever the deleted image path changes
       //useStore.getState().setOutfit(null);
       
@@ -125,6 +144,7 @@ const Calendar = () => {
         const parsedOutfits = JSON.parse(storedOutfitsData);
         const filtered = parsedOutfits.filter(outfit => outfit.date === selectedDate);
         setOutfitsForDate(filtered);
+        
         //useStore.getState().setOutfit(null); // Store the selected outfit
         console.log("all the outfits are",parsedOutfits);
         //const outfitsForThisDate = parsedOutfits.filter(outfit => outfit.event_name === outfitforcancel.event_name);
