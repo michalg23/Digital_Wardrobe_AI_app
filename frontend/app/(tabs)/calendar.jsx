@@ -123,6 +123,8 @@ const Calendar = () => {
       
       if (storedOutfitsData  && storedOutfitsData.length>0 ) {
         const parsedOutfits = JSON.parse(storedOutfitsData);
+        const filtered = parsedOutfits.filter(outfit => outfit.date === selectedDate);
+        setOutfitsForDate(filtered);
         //useStore.getState().setOutfit(null); // Store the selected outfit
         console.log("all the outfits are",parsedOutfits);
         //const outfitsForThisDate = parsedOutfits.filter(outfit => outfit.event_name === outfitforcancel.event_name);
