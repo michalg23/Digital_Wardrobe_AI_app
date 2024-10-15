@@ -1,12 +1,14 @@
-import { View, Text ,Image} from 'react-native';
+import { View, Text ,Image, StyleSheet} from 'react-native';
 import { Tabs, Redirect} from 'expo-router';
 
 import { icons }  from '../../constants';
 
 const TabIcon= ({ icon, color, name, focused }) => {
+  
     
     return (
        <View className="items-center justify-center gap-1" style={{ paddingTop: 5 }}>
+            
             <Image 
                 source={icon}
                 resizeMode="contain"
@@ -28,6 +30,7 @@ const TabIcon= ({ icon, color, name, focused }) => {
 const TabsLayout = () => {
     return (
       <>
+        
         <Tabs
           screenOptions={{
             tabBarShowLabel: false,

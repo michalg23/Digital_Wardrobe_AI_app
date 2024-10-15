@@ -3,7 +3,7 @@
     "name": "DigitaldWardrob",
     "scheme": "digitalwardrobe",
     "slug": "frontend",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier" : "com.yourcompany.digitalwardrobe" 
     },
     "android": {
       "adaptiveIcon": {
@@ -25,8 +26,19 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0  
+    },
+    "assetBundlePatterns": [
+      "**/*"  
+    ],
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "runtimeVersion": {
+      "policy": "sdkVersion" 
+    },
+    "sdkVersion": "51.0.0"
+
   }
 }
