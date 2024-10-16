@@ -49,14 +49,11 @@ const Calendar = () => {
       console.log('value2:', previousOutfit1);
       console.log('value3:', NewOutfit.images.length);
 
-      if (
-        storedOutfitsData !== null &&
-        previousOutfit1 === null &&
-        NewOutfit.images.length === 0
-      ) {
-        
+      if (storedOutfitsData !== null && ( previousOutfit1 === undefined) && NewOutfit.images.length === 0) {
+        setpreviousOutfit(null);
         loadOutfits();
         console.log('check to see if we use this useffect(first)');
+        
         //setpreviousOutfit(outfit);
       }
     } catch (error) {
@@ -89,10 +86,7 @@ const Calendar = () => {
           handleUpdatedOutfit(updatedOutfit); // Update the stored outfits
           //setpreviousOutfit(null);
         }
-        if(previousOutfit1!==null){
-          setpreviousOutfit(null);
-
-        }
+        
         
         
         
@@ -143,7 +137,7 @@ const Calendar = () => {
       if (storedOutfitsData  && storedOutfitsData.length>0 ) {
         const parsedOutfits = JSON.parse(storedOutfitsData);
         const filtered = parsedOutfits.filter(outfit => outfit.date === selectedDate);
-        setOutfitsForDate(filtered);
+        //setOutfitsForDate(filtered);
         
         //useStore.getState().setOutfit(null); // Store the selected outfit
         console.log("all the outfits are",parsedOutfits);
