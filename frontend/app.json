@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "DigitaldWardrob",
+    "name": "WardroGo",
     "scheme": "digitalwardrobe",
-    "slug": "frontend",
-    "version": "0.0.0",
+    "slug": "finalproject",
+    "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "developmentClient": false,
+    "icon": "./assets/icon1.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -14,31 +15,42 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier" : "com.yourcompany.digitalwardrobe" 
+      "bundleIdentifier": "com.yourcompany.digitalwardrobe"
     },
     "android": {
+      "package": "com.michal100.finalproject",
+      "versionCode": 2,
+      "icon": "./assets/icon1.png",
+      "name": "WardroGo",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon1.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "android.expoa"
+      "permissions": [
+        "INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0  
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"  
+      "**/*"
     ],
     "plugins": [
       "expo-router"
     ],
     "runtimeVersion": {
-      "policy": "sdkVersion" 
+      "policy": "sdkVersion"
     },
-    "sdkVersion": "51.0.0"
-
+    "sdkVersion": "51.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "72648a85-3e62-4376-ba36-7eadf5f8fac2"
+      }
+    },
+    "owner": "michal100"
   }
 }

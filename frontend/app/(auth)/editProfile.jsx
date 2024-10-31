@@ -44,23 +44,24 @@ const EditProfile = () => {
     const apiUrl= `${baseURL}/users/update`;
     try{
       const response = await axiosInstance.put(apiUrl, userdata);//backend call
-      if(response.status === 400) {
-        Alert.alert('error', 'Email already in use try something else');
-      }
-      else {
+      
+      
         // Save updated values locally
-        if (updatedName) await AsyncStorage.setItem('username', updatedName);
-        if (updatedEmail) await AsyncStorage.setItem('email', updatedEmail);
+      if (updatedName) await AsyncStorage.setItem('username', updatedName);
+      if (updatedEmail) await AsyncStorage.setItem('email', updatedEmail);
 
-        Alert.alert('Success', 'Profile updated successfully.');
-        navigation.navigate('profile'); // Navigate back to profile
-      }
-
-      } catch (error) {
+      Alert.alert('Success', 'Profile updated successfully.');
+      navigation.navigate('profile'); // Navigate back to profile
+      
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
         console.log(error);
-        Alert.alert('Error', 'An error occurred while updating a profile.');
+        Alert.alert('Error', 'Email already in use, try something else');
+      } else {
+        console.log(error);
+        Alert.alert('Error', 'An error occurred while updating the profile.');
       }
-  
+    }
 
   };
 

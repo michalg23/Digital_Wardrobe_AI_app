@@ -6,10 +6,7 @@ import CustomButton from '../components/CustomButton';
 import { useEffect, useState  } from 'react';
 import axiosInstance  from '../src/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-//import  Animated , { Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
-//import RotatingAnimation from '../components/Rotating_animation';
+import { I18nManager } from 'react-native';
 
 
 export default function App() {
@@ -17,7 +14,15 @@ export default function App() {
   const [hasToken, setHasToken] = useState(false);
   const router = useRouter();
 
+
+
   useEffect(() => {
+
+    if (I18nManager.isRTL) {
+      I18nManager.forceRTL(false);
+      I18nManager.allowRTL(false);
+    }
+    
     const checkToken = async () => {
       try {
         const token = await AsyncStorage.getItem('jwt_token');

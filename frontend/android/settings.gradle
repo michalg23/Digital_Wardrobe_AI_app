@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'DigitaldWardrob'
+rootProject.name = 'WardroGo'
 
 dependencyResolutionManagement {
   versionCatalogs {

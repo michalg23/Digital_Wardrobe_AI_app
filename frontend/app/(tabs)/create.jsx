@@ -164,7 +164,7 @@ const Create = () => {
 
   const uploadImage = async (imageUri) => {
     const apiUrl= `${baseURL}/images`;
-    //2222222222222222222222
+    
     if(imageUri===null){
       router.replace('create')
     }

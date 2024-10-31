@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image, Alert, ScrollView,Button,Linking  } from 'react-native';
 import Avatar from '../../components/Avatar'; // Make sure the path is correct for your Avatar component
-import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native'; // For navigation
 import CustomButton from '../../components/CustomButton';
 import {useSearchParams , Redirect, useRouter } from "expo-router";

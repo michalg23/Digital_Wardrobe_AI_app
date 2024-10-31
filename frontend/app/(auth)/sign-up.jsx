@@ -1,4 +1,4 @@
-import { View, Text ,ScrollView, Image, Alert} from 'react-native';
+import { View, Text ,ScrollView, Image, Alert, BackHandler } from 'react-native';
 import React ,{useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '../../components/FormField';
@@ -7,8 +7,21 @@ import { Link, router } from 'expo-router';
 import axiosInstance, {baseURL} from '../../src/config';
 import {validateEmail, validateUsername} from '../../components/Validation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const SignUp = () => {
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true; // Prevents going back
+      };
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [])
+  );
+
     const [form, setForm] = useState({
     email:'',
     username: ''
@@ -135,7 +148,7 @@ const SignUp = () => {
               <Text className="text-lg text-black-100 font-pregular">
                 allready have an account?
               </Text>
-              <Link href="/create" style={{fontSize: 18, fontWeight: 'bold', color: '#5ce1e6'}}>
+              <Link href="/sign-in" style={{fontSize: 18, fontWeight: 'bold', color: '#5ce1e6'}}>
                 Sign In
               </Link>
             </View>

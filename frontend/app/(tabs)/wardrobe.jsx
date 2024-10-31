@@ -117,6 +117,21 @@ const Wardrobe = () => {
       resetScrollView(); // Reset scroll view whenever the screen is focused
     }, [])
   );
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+      // Check if the user is navigating back to sign-in screen
+      if (previousScreen === 'signIn') {
+        e.preventDefault();
+        // Optionally, add logic to confirm before exiting or any other preferred action
+        console.log("Prevented going back to sign-in screen");
+        // Exiting the app logic
+        navigation.dispatch(StackActions.popToTop()); // or use BackHandler.exitApp() for Android
+      }
+    });
+  
+    return unsubscribe; // Clean up the listener on unmount
+  }, [navigation, previousScreen]);
+
 
   // Define the onDelete handler
   const handleDelete = (imageId,newpath) => {

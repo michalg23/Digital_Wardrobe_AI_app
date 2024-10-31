@@ -1,4 +1,4 @@
-import { View, Text ,ScrollView, Image, Alert} from 'react-native';
+import { View, Text ,ScrollView, Image, Alert, BackHandler} from 'react-native';
 import React ,{useState, useEffect} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '../../components/FormField';
@@ -10,6 +10,21 @@ import {validateEmail, validateUsername} from '../../components/Validation';
 import { useFocusEffect,useRoute } from '@react-navigation/native';
 
 const SignIn = () => {
+
+
+   useEffect(() => {
+    // Define a function to handle back button press
+    const backAction = () => {
+      //Alert.alert("Hold on!", "You can't go back from the sign-in screen.");
+      return true; // Return true to disable back button
+    };
+
+    // Add the event listener for back press
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    // Cleanup the event listener on component unmount
+    return () => backHandler.remove();
+   }, []);
    
    const [form, setForm] = useState({
     email:'',
@@ -136,7 +151,7 @@ const SignIn = () => {
       <ScrollView>
          <View className="w-full justify-center min-h-[80vh] px-4 my-6">
             <Image
-               source={require('C:/Users/student/Desktop/FinalProject/frontend/assets/icons/custom.png')}
+               source={require('../../assets/icons/custom.png')}
                style={{ width: 450,left: -50, height: 500,top: 10,  marginTop: -250 }} // Adjust size and spacing
                resizeMode="contain"
                
