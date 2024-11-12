@@ -6,14 +6,14 @@ Welcome to the Digital Wardrobe App! This application allows you to effortlessly
 - Organized Wardrobe: View your clothing items sorted into categories for quick and easy access.
 ## Technologies Used
 **Backend:**
-- Flask is used for building the server-side logic, handling image uploads, and processing AI classification requests.
-- Ubuntu Server:Hosts the backend services, providing a stable and scalable environment for processing and storage.
-- HTTP Requests:Facilitates communication between the frontend and backend.
+- Flask: used for building the server-side logic, handling image uploads, and processing AI classification requests.
+- Ubuntu Server :Hosts the backend services, providing a stable and scalable environment for processing and storage.
+- HTTP Requests :Facilitates communication between the frontend and backend.
+  
 **Frontend:**
-- React Native: provides a smooth and intuitive interface for users to interact with the app on their mobile devices.
-- Expo Go:Streamlines the development and testing process of the React Native app on mobile devices.
-- JavaScript: Powers the frontend logic and interactions.
-- 
+- React Native : provides a smooth and intuitive interface for users to interact with the app on their mobile devices.
+- Expo Go: Streamlines the development and testing process of the React Native app on mobile devices.
+- JavaScript : Powers the frontend logic and interactions.
 ## Getting Started
 ### Clone the Repository:
 ```sh
